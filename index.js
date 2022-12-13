@@ -87,26 +87,16 @@ app.all("*", (req, res) => {
 });
 app.use(errorBuilder);
 
-// async function dbConnection() {
-// try {
-mongoose.connect(process.env.DB_URL).then(
-  () => {
-    console.log("Successfully connected to DB");
-    app.listen(PORT, () => {
-      console.log(`🚀 Server ready at http://localhost:${PORT}`);
-    });
-  },
-  (error) => {
-    /** handle initial connection error */
-    throw error;
+mongoose.connect(process.env.DB_URL, function (err) {
+  if (err) {
+    throw err;
   }
-);
-// } catch (error) {
-//   throw error;
-// }
-// }
+  console.log("Successfully connected to DB");
+  app.listen(PORT, () => {
+    console.log(`🚀 Server ready at http://localhost:${PORT}`);
+  });
+});
 
-// dbConnection();
 mongoose.connection.on("disconnected", () => {
   console.log("MongoDB is disconnected");
 });
