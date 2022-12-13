@@ -59,18 +59,6 @@ const specs = swaggerJSDoc(swaggerOptions);
 
 const PORT = process.env.PORT || 4000;
 
-async function dbConnection() {
-  try {
-    mongoose.connect(process.env.DB_URL);
-    console.log("Successfully connected to DB");
-  } catch (error) {
-    throw error;
-  }
-}
-mongoose.connection.on("disconnected", () => {
-  console.log("MongoDB is disconnected");
-});
-
 //middlewares
 app.use(credentials);
 app.use(cors(corsOptions));
@@ -99,7 +87,26 @@ app.all("*", (req, res) => {
 });
 app.use(errorBuilder);
 
-app.listen(PORT, () => {
-  dbConnection();
-  console.log(`🚀 Server ready at http://localhost:${PORT}`);
+// async function dbConnection() {
+// try {
+mongoose.connect(process.env.DB_URL).then(
+  () => {
+    console.log("Successfully connected to DB");
+    app.listen(PORT, () => {
+      console.log(`🚀 Server ready at http://localhost:${PORT}`);
+    });
+  },
+  (error) => {
+    /** handle initial connection error */
+    throw error;
+  }
+);
+// } catch (error) {
+//   throw error;
+// }
+// }
+
+// dbConnection();
+mongoose.connection.on("disconnected", () => {
+  console.log("MongoDB is disconnected");
 });
