@@ -20,8 +20,10 @@ router.get("/", async function (req, res) {
 
     if (user.phone !== decoded.phone) return res.status(403).json("Forbiden");
 
+    //TODO: ADD ROLES TO THE ACCESS TOKEM BEEM GENERATED
+    // const roles = Object.values(user.roles).filter(Boolean);
     const accessToken = jwt.sign(
-      { id: decoded.id, phone: decoded.phone },
+      { data: { id: user._id, phone: user.phone } },
       process.env.ACCESS_TOKEN_SECRETE,
       { expiresIn: "10m" }
     );

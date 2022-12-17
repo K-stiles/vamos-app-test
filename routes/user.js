@@ -7,7 +7,8 @@ import {
   getUsers,
   updateUser,
 } from "../controllers/userController.js";
-
+import ROLES from "../utils/roles.js";
+import { rolesCheck } from "../middleware/rolesCheck.js";
 
 /**
  * @swagger
@@ -37,8 +38,6 @@ import {
  *          description: Error occurred
  */
 
-router.get("/", getUsers);
-
 /**
  * @swagger
  * /api/users/{id}:
@@ -67,8 +66,6 @@ router.get("/", getUsers);
  *
  *
  */
-
-router.get("/:id", getUser);
 
 /**
  * @swagger
@@ -101,7 +98,6 @@ router.get("/:id", getUser);
  *      404:
  *        description: Error ocurred
  */
-router.put("/:id", updateUser);
 
 /**
  * @swagger
@@ -128,6 +124,9 @@ router.put("/:id", updateUser);
  *
  */
 
-router.delete("/:id", deleteUser);
+router.get("/", rolesCheck(ROLES.ADMIN), getUsers);
+router.get("/:id", rolesCheck(ROLES.USER, ROLES.ADMIN), getUser);
+router.put("/:id", rolesCheck(ROLES.USER, ROLES.ADMIN), updateUser);
+router.delete("/:id", rolesCheck(ROLES.USER, ROLES.ADMIN), deleteUser);
 
 export default router;

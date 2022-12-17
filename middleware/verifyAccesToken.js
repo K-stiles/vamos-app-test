@@ -16,8 +16,8 @@ function verifyAccessToken(req, res, next) {
       process.env.ACCESS_TOKEN_SECRETE,
       function (err, decoded) {
         if (err) return next(parentError(400, "Invalid/Eexpired Token"));
-        // decoded undefined
-        req.user = decoded.username;
+        req.user = decoded.data.phone;
+        req.roles = decoded.data.roles;
         next();
       }
     );

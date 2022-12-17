@@ -9,8 +9,8 @@ import swaggerJSDoc from "swagger-jsdoc";
 
 //middlewares
 import { errorBuilder } from "./middleware/errorBuilder.js";
-// import verifyAccessToken from "./middleware/verifyAccesToken.js";
-// import { rolesCheck } from "./middleware/rolesCheck.js";
+import verifyAccessToken from "./middleware/verifyAccesToken.js";
+import { rolesCheck } from "./middleware/rolesCheck.js";
 import credentials from "./middleware/credentials.js";
 import corsOptions from "./utils/corsOptions.js";
 
@@ -21,6 +21,7 @@ import adminRoute from "./routes/admin.js";
 import refreshTokenRoute from "./routes/refreshToken.js";
 
 import { User, Trip } from "./routes/docs/schemas.js";
+import ROLES from "./utils/roles.js";
 
 //TODO: @Abednego please move this to a separate file
 const swaggerOptions = {
@@ -59,6 +60,18 @@ const specs = swaggerJSDoc(swaggerOptions);
 
 const PORT = process.env.PORT || 4000;
 
+async function dbConnection() {
+  try {
+    mongoose.connect(process.env.DB_URL);
+    console.log("Successfully connected to DB");
+  } catch (error) {
+    throw error;
+  }
+}
+mongoose.connection.on("disconnected", () => {
+  console.log("MongoDB is disconnected");
+});
+
 //middlewares
 app.use(credentials);
 app.use(cors(corsOptions));
@@ -76,8 +89,9 @@ app.get("/", (req, res) => {
 app.use("/api-docs", swaggerUI.serve, swaggerUI.setup(specs));
 app.use("/api/auth", authRoute);
 app.use("/api/refresh-token", refreshTokenRoute);
+app.use(verifyAccessToken);
 app.use("/api/users", userRoute);
-app.use("/api/admin-auth", adminRoute);
+app.use("/api/admin-auth", rolesCheck(ROLES.ADMIN), adminRoute);
 app.all("*", (req, res) => {
   res
     .status(404)
@@ -87,16 +101,7 @@ app.all("*", (req, res) => {
 });
 app.use(errorBuilder);
 
-mongoose.connect(process.env.DB_URL, function (err) {
-  if (err) {
-    throw err;
-  }
-  console.log("Successfully connected to DB");
-  app.listen(PORT, () => {
-    console.log(`🚀 Server ready at http://localhost:${PORT}`);
-  });
-});
-
-mongoose.connection.on("disconnected", () => {
-  console.log("MongoDB is disconnected");
+app.listen(PORT, () => {
+  dbConnection();
+  console.log(`🚀 Server ready at http://localhost:${PORT}`);
 });
