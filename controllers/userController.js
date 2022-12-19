@@ -1,10 +1,11 @@
 import User from "../models/user.js";
+import { parentError } from "../utils/error.js";
 
 //GET USER
 export const getUser = async (req, res, next) => {
   try {
     const user = await User.findById(req.params.id);
-    if (!user) return res.status(500).json("User does not exit");
+    if (!user) return next(parentError(404, "No User Found"));
     res.status(200).json(user);
   } catch (error) {
     next(error);
@@ -15,7 +16,7 @@ export const getUser = async (req, res, next) => {
 export const getUsers = async (req, res, next) => {
   try {
     const users = await User.find();
-    if (!users) return res.status(500).json("No user was found"); //correct leave same...!
+    if (!users) return next(parentError(404, "No User Found"));
     res.status(200).json(users);
   } catch (error) {
     next(error);
@@ -30,7 +31,8 @@ export const updateUser = async (req, res, next) => {
       { $set: req.body },
       { new: true }
     );
-    if (!user) return res.status(404).json("User does not exit/ Unauthorized");
+    if (!user)
+      return next(parentError(404, "User does not exit/ Unauthorized"));
     res.status(200).json(user);
   } catch (error) {
     next(error);

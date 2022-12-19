@@ -19,6 +19,7 @@ import authRoute from "./routes/auth.js";
 import userRoute from "./routes/user.js";
 import adminRoute from "./routes/admin.js";
 import refreshTokenRoute from "./routes/refreshToken.js";
+import ticketRoute from "./routes/ticket.js";
 
 import { User, Trip } from "./routes/docs/schemas.js";
 import ROLES from "./utils/roles.js";
@@ -92,6 +93,7 @@ app.use("/api/refresh-token", refreshTokenRoute);
 app.use(verifyAccessToken);
 app.use("/api/users", userRoute);
 app.use("/api/admin-auth", rolesCheck(ROLES.ADMIN), adminRoute);
+app.use("/api/ticket", ticketRoute);
 app.all("*", (req, res) => {
   res
     .status(404)
