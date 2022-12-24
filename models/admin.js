@@ -12,10 +12,19 @@ const adminSchema = new Schema(
       unique: true,
     },
     roles: {
-      User: { type: Number, default: 1050 },
-      SubAdmin: Number,
-      Admin: Number,
+      type: Number,
+      default: 3000,
+      enum: [3000, 2500, 2000],
     },
+    // roles: {
+    //   User: Number,
+    //   SubAdmin: Number,
+    //   Admin: {
+    //     type: Number,
+    //     default: 3000,
+    //     enum: [3000, 2500, 2000],
+    //   },
+    // },
     profile: { type: String, default: "" },
     refreshToken: [String],
   },

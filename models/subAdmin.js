@@ -9,10 +9,15 @@ const subAdminSchema = new Schema(
       unique: true,
     },
     password: { type: String, require: true },
+    // roles: {
+    //   User: Number,
+    //   SubAdmin: { type: Number, default: 2500 },
+    //   Admin: Number,
+    // },
     roles: {
-      User: { type: Number, default: 1050 },
-      SubAdmin: Number,
-      Admin: Number,
+      type: Number,
+      default: 2500,
+      enum: [3000, 2500, 2000],
     },
     profile: { type: String, default: "" },
     refreshToken: [String],

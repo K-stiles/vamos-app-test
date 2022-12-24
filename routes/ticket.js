@@ -5,20 +5,28 @@ import {
   getTicket,
   getTickets,
   updateTicket,
-  getAmount,
-  getDestTickets,
-  getDepartTickets,
 } from "../controllers/ticketController.js";
 import ROLES from "../utils/roles.js";
 import { rolesCheck } from "../middleware/rolesCheck.js";
+import verifyAccessToken from "../middleware/verifyAccesToken.js";
 
 const router = express.Router();
 
 router.get("/:ticketId", getTicket);
 router.get("/", getTickets);
-router.post("/", rolesCheck(ROLES.ADMIN), createTicket);
-router.put("/:ticketId", rolesCheck(ROLES.ADMIN), updateTicket);
-router.delete("/:ticketId", rolesCheck(ROLES.ADMIN), deleteTicket);
+router.post("/", verifyAccessToken, rolesCheck(ROLES.ADMIN), createTicket);
+router.put(
+  "/:ticketId",
+  verifyAccessToken,
+  rolesCheck(ROLES.ADMIN),
+  updateTicket
+);
+router.delete(
+  "/:ticketId",
+  verifyAccessToken,
+  rolesCheck(ROLES.ADMIN),
+  deleteTicket
+);
 
 // router.get("/:limit", getAmount); //TODO: please Eleborate
 // router.get("/:destination", getDestTickets); //TODO: please Eleborate

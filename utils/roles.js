@@ -1,6 +1,6 @@
 const ROLES = {
-  ADMIN: 2050,
-  SUBADMIN: 2000,
-  USER: 1050,
+  ADMIN: 3000,
+  SUBADMIN: 2500,
+  USER: 2000,
 };
 export default ROLES;

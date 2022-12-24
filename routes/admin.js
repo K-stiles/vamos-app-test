@@ -2,17 +2,22 @@ import express from "express";
 const router = express.Router();
 
 import {
-  createAdmin,
+  register,
+  loginAsAdmin,
   deleteAdmin,
   getAdmin,
   getAdmins,
   updateAdmin,
 } from "../controllers/adminController.js";
+import verifyAccessToken from "../middleware/verifyAccesToken.js";
+import { rolesCheck } from "../middleware/rolesCheck.js";
+import ROLES from "../utils/roles.js";
 
-router.get("/:id", getAdmin);
-router.get("/", getAdmins);
-router.post("/", createAdmin);
-router.put("/:id", updateAdmin);
-router.delete("/:id", deleteAdmin);
+router.post("/auth-register", register);
+router.post("/auth-login", loginAsAdmin);
+router.get("/get-all", verifyAccessToken, rolesCheck(ROLES.ADMIN), getAdmins);
+router.get("/:id", verifyAccessToken, rolesCheck(ROLES.ADMIN), getAdmin);
+router.put("/:id", verifyAccessToken, rolesCheck(ROLES.ADMIN), updateAdmin);
+router.delete("/:id", verifyAccessToken, rolesCheck(ROLES.ADMIN), deleteAdmin);
 
 export default router;

@@ -64,13 +64,13 @@ const PORT = process.env.PORT || 4000;
 async function dbConnection() {
   try {
     mongoose.connect(process.env.DB_URL);
-    console.log("Successfully connected to DB");
+    // console.log("Successfully connected to DB");
   } catch (error) {
     throw error;
   }
 }
 mongoose.connection.on("disconnected", () => {
-  console.log("MongoDB is disconnected");
+  // console.log("MongoDB is disconnected");
 });
 
 //middlewares
@@ -90,10 +90,10 @@ app.get("/", (req, res) => {
 app.use("/api-docs", swaggerUI.serve, swaggerUI.setup(specs));
 app.use("/api/auth", authRoute);
 app.use("/api/refresh-token", refreshTokenRoute);
-app.use(verifyAccessToken);
-app.use("/api/users", userRoute);
-app.use("/api/admin-auth", rolesCheck(ROLES.ADMIN), adminRoute);
-app.use("/api/ticket", ticketRoute);
+// app.use(verifyAccessToken);
+app.use("/api/users", verifyAccessToken, userRoute);
+app.use("/api/admin", adminRoute);
+app.use("/api/tickets", ticketRoute);
 app.all("*", (req, res) => {
   res
     .status(404)
@@ -105,5 +105,6 @@ app.use(errorBuilder);
 
 app.listen(PORT, () => {
   dbConnection();
-  console.log(`🚀 Server ready at http://localhost:${PORT}`);
+  // console.log(`🚀 Server ready at http://localhost:${PORT}`);
+  console.log(`🚀`);
 });

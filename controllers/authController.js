@@ -1,4 +1,4 @@
-import jwt from "jsonwebtoken";
+// import jwt from "jsonwebtoken";
 import bcrypt from "bcryptjs";
 import * as dotenv from "dotenv";
 import twilio from "twilio";
@@ -6,23 +6,24 @@ import twilio from "twilio";
 import User from "../models/user.js";
 import { validateInInput, validateRegInput } from "../utils/inputValidator.js";
 import { parentError } from "../utils/error.js";
+import { generateAccessToken } from "../utils/tokenGen.js";
 
 dotenv.config();
 
-function generateAccessToken(user) {
-  const roles = Object.values(user.roles).filter(Boolean);
-  return jwt.sign(
-    {
-      data: {
-        id: user._id,
-        phone: user.phone,
-        roles,
-      },
-    },
-    process.env.ACCESS_TOKEN_SECRETE,
-    { expiresIn: "10m" }
-  );
-}
+// function generateAccessToken(user) {
+//   const roles = Object.values(user.roles).filter(Boolean);
+//   return jwt.sign(
+//     {
+//       data: {
+//         id: user._id,
+//         phone: user.phone,
+//         roles,
+//       },
+//     },
+//     process.env.ACCESS_TOKEN_SECRETE,
+//     { expiresIn: "10m" }
+//   );
+// }
 
 // function generateRefeshToken(user) {
 //   return jwt.sign(
@@ -88,15 +89,14 @@ export const authVerificathion = async (req, res, next) => {
       username,
       phone,
       password,
-      roles: {
-        User: 1050,
-        Admin: 2050,
-      },
     });
     const user = await newUser.save();
-    res
-      .status(201)
-      .json({ succcess: true, message: "User successfully created", user });
+    const { password: Pwd, ...userDoc } = user._doc;
+    res.status(201).json({
+      succcess: true,
+      message: "User successfully created",
+      user: { ...userDoc },
+    });
   } catch (error) {
     next(error);
   }

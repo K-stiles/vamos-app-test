@@ -10,10 +10,15 @@ const userSchema = new Schema(
     },
     password: { type: String, require: true },
     profile: { type: String, default: "" },
+    // roles: {
+    //   User: { type: Number, default: 2000 },
+    //   SubAdmin: Number,
+    //   Admin: Number,
+    // },
     roles: {
-      User: { type: Number, default: 1050 },
-      SubAdmin: Number,
-      Admin: Number,
+      type: Number,
+      default: 2000,
+      enum: [3000, 2500, 2000],
     },
     refreshToken: [String],
   },

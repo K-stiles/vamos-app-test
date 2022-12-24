@@ -11,17 +11,17 @@ const ticketSchema = new Schema(
       required: true,
     },
     pickupLocation: {
-      //TODO: changed From to Departure
       type: String,
       required: true,
     },
     destination: {
-      //TODO: changed to to Destination
       type: String,
       required: true,
     },
-    // date: { type: Date, default: Date.now, required: true },
-    // contact: [{ String }], //TODO: Added Ticket contact info-will modify
+    contact: {
+      type: Array,
+      default: [],
+    },
   },
   { timestamps: true }
 );

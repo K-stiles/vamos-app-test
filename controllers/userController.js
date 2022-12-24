@@ -6,7 +6,8 @@ export const getUser = async (req, res, next) => {
   try {
     const user = await User.findById(req.params.id);
     if (!user) return next(parentError(404, "No User Found"));
-    res.status(200).json(user);
+    const { password, ...userDoc } = user._doc;
+    res.status(200).json({ ...userDoc });
   } catch (error) {
     next(error);
   }
@@ -17,6 +18,7 @@ export const getUsers = async (req, res, next) => {
   try {
     const users = await User.find();
     if (!users) return next(parentError(404, "No User Found"));
+    //TODO: EXCLUDE ALL USER PASSWORDS FROM THIS FETCH
     res.status(200).json(users);
   } catch (error) {
     next(error);
