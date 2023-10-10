@@ -1,4 +1,26 @@
 .env
+.env.production
+.en.development
+
+/node_modules
+
+
+.TODO
+.DS_Store
+
+previous
+dist/
+
+tasks.md
+notes.md
+.DS_Store
+..eslintrc.js
+.prettierrc.js
+.eslintrc.cjs
 
 /node_modules
 package-lock.json
+
+/logs
+/routes/developers.js
+/models/developer.js

@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+  <%- include("./partials/head.ejs")%>
+
+  <body>
+    <%- include("./partials/navigationBar.ejs")%>
+    <main>
+    <div class="sub_main">
+      <h2 class="main_header">Sign Up.</h2>
+      <p class="reg_desc">Please fill all the inputs with the appropriate information so you can enjoy full access grant to the <span>VAMOS API</span></p>
+      <div class="form_wrapper">
+        <form id="regForm" method="POST" //action="/api/developers/register"
+        >
+          <!-- Name -->
+          <label for="name" class="form_title">Name</label>
+          <div class="input_wrapper">
+            <input
+              id="nameId"
+              name="name"
+              type="text"
+              placeholder="user name"
+              autocomplete="off"
+              required
+            />
+          </div>
+
+          <!-- email -->
+          <label for="email" class="form_title">Email</label>
+          <div class="input_wrapper">
+            <input
+              id="email"
+              name="email"
+              type="email"
+              placeholder="example@gmail.com"
+              autocomplete="off"
+              required
+            />
+          </div>
+
+          <!-- password -->
+          <label for="password" class="form_title">Password</label>
+          <div class="input_wrapper">
+            <input
+              id="password"
+              name="password"
+              type="password"
+              placeholder="password"
+              required
+            />
+          </div>
+
+          <!-- domain -->
+          <label for="domain" class="form_title">Project Domain</label>
+          <div class="input_wrapper">
+            <input
+              id="domain"
+              name="domain"
+              type="text"
+              placeholder="vamos.com"
+              autocomplete="off"
+              required
+            />
+          </div>
+
+          <!-- Reg Button -->
+          <button id="regBtn" class="reg_Btn" type="submit">
+            Register for a key
+          </button>
+        </form>
+      </div>
+
+      <p class="reg_desc">We'll send you an email with your account information along with your apI key</p>
+    
+    </div>  
+    </main>
+    <script src="/js/register.js"></script>
+  </body>
+</html>
