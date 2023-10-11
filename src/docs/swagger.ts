@@ -21,6 +21,10 @@ const swaggerOptions = {
             {
                 url: "https://nervous-cow-stockings.cyclic.app/",
                 description: "Development Server"
+            },
+            {
+                url: "https://will-be-updated-soon/",
+                description: "Production Server"
             }
         ],
 
@@ -1501,7 +1505,7 @@ const swaggerOptions = {
                                             contact: {
                                                 type: "array",
                                                 items: { type: "string" },
-                                                example: ["Jane Doe", "jdoe@example.com", "0244408990"]
+                                                example: ["jdoe@example.com", "0244408990"]
                                             }
                                         }
                                     }
@@ -1516,7 +1520,7 @@ const swaggerOptions = {
                                     schema: {
                                         type: "object",
                                         example: {
-                                            message: "Ticket created successfully"
+                                            message: "Tickets uploaded successfully"
                                         }
                                     }
                                 }
@@ -1599,7 +1603,7 @@ const swaggerOptions = {
                                         contact: {
                                             type: "array",
                                             items: { type: "string" },
-                                            example: ["Jane Doe", "jdoe@example.com", "0244408990"]
+                                            example: ["jdoe@example.com", "0244408990"]
                                         }
                                     }
                                 }
@@ -1613,7 +1617,7 @@ const swaggerOptions = {
                                     schema: {
                                         type: "object",
                                         example: {
-                                            message: "Ticket created successfully"
+                                            message: "Ticket uploaded successfully"
                                         }
                                     }
                                 }
@@ -1805,7 +1809,7 @@ const swaggerOptions = {
                     }
                 }
             },
-            "/api/v1/agency": {
+            "/api/v1/agencies": {
                 get: {
                     summary: "Returns the list of all the agencies",
                     tags: ["Agency"],
@@ -1857,7 +1861,7 @@ const swaggerOptions = {
                     }
                 }
             },
-            "/api/v1/agency/{agencyId}": {
+            "/api/v1/agencies/{agencyId}": {
                 get: {
                     summary: "Get an agency by id",
                     tags: ["Agency"],

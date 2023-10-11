@@ -7,7 +7,7 @@
 
 /**
  * @swagger
- * /api/v1/agency:
+ * /api/v1/agencies:
  *    get:
  *      summary: Returns the list of all the agencies
  *      tags: [Agency]
@@ -28,7 +28,7 @@
 
 /**
  * @swagger
- * /api/v1/agency/{id}:
+ * /api/v1/agencies/{id}:
  *   get:
  *     summary: Get a agency by id
  *     tags: [Agency]
@@ -57,7 +57,7 @@
 
 /**
  * @swagger
- * /api/v1/agency/{id}:
+ * /api/v1/agencies/{id}:
  *   put:
  *     summary: Update an agency
  *     tags: [Agency]
@@ -89,7 +89,7 @@
 
 /**
  * @swagger
- * /api/v1/agency/{id}:
+ * /api/v1/agencies/{id}:
  *   delete:
  *     summary: Delete an agency
  *     tags: [Agency]

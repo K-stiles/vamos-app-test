@@ -36,7 +36,7 @@ export default function routeHandlers(app: Express) {
     app.use("/api/v1/tickets", ticketRoute);
     app.use("/api/v1/trips", tripsRoute);
     app.use("/api/v1/agencies", agencyRoute);
-    app.use("/api/v1/payment", paymentRoute);
+    app.use("/api/v1/payments", paymentRoute);
 
     /** Server Error Builders */
     app.all("*", notfound);
