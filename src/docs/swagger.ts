@@ -1505,7 +1505,7 @@ const swaggerOptions = {
                                             contact: {
                                                 type: "array",
                                                 items: { type: "string" },
-                                                example: ["jdoe@example.com", "0244408990"]
+                                                example: ["Jane Doe", "jdoe@example.com", "0244408990"]
                                             }
                                         }
                                     }
@@ -1520,7 +1520,7 @@ const swaggerOptions = {
                                     schema: {
                                         type: "object",
                                         example: {
-                                            message: "Tickets uploaded successfully"
+                                            message: "Ticket created successfully"
                                         }
                                     }
                                 }
@@ -1603,7 +1603,7 @@ const swaggerOptions = {
                                         contact: {
                                             type: "array",
                                             items: { type: "string" },
-                                            example: ["jdoe@example.com", "0244408990"]
+                                            example: ["Jane Doe", "jdoe@example.com", "0244408990"]
                                         }
                                     }
                                 }
@@ -1617,7 +1617,7 @@ const swaggerOptions = {
                                     schema: {
                                         type: "object",
                                         example: {
-                                            message: "Ticket uploaded successfully"
+                                            message: "Ticket created successfully"
                                         }
                                     }
                                 }
